@@ -20,7 +20,7 @@ $(document).ready(function () {
                 my_calculator.allClear();
                 break;
             case "C":
-                my_calculator.clear(value);
+                my_calculator.clear();
                 break;
             default:
                 my_calculator.addItem($(this).text());
