@@ -1,0 +1,65 @@
+body{
+    background: url("images/wall-e.jpg");
+    no-repeat: center center fixed;
+    background-size: cover;
+}
+
+#outline_calculator{
+    background-color:black;
+    width:400px;
+    height:500px;
+    color:black;
+    border:15px ridge purple;
+    margin-left:50px;
+    margin-top:35px;
+    background:url("images/Eve-wall-e.jpg");
+    background-position: center;
+    background-size:cover;
+}
+
+#display_screen {
+    background-color: transparent;
+    position: relative;
+    width: 360px;
+    height: 150px;
+    top: 20px;
+    margin-bottom: 25px;
+    margin-left: 14px;
+    border: 5px ridge whitesmoke;
+    color:black;
+    font-size:55px;
+}
+.number_area{
+    margin:10px;
+}
+
+#clear_area{
+    margin-top:10px;
+    margin-left:15px;
+}
+
+.btn-default{
+    width: 85px;
+    height:50px;
+    margin:3px;
+    background-color:black;
+    border:4px ridge silver;
+    font-size:35px;
+    font-weight:bold;
+    color:paleturquoise;
+}
+
+.btn-info{
+    width: 180px;
+    height:50px;
+    margin:3px;
+    background-color: black;
+    background-size:45px;
+    border:4px ridge silver;
+    font-size:30px;
+    font-weight:bold;
+    position:relative;
+    right:5px;
+    color:magenta;
+    text-shadow: 0 0 10px white;
+}
