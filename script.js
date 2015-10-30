@@ -16,7 +16,7 @@ $(document).ready(function () {
     $('button').on('click', function () {
         var val = $(this).text();
         switch (val) {
-            case 'AC':
+            case "AC":
                 my_calculator.allClear();
                 break;
             case "C":
@@ -28,6 +28,7 @@ $(document).ready(function () {
         }
     });
 })
+
 //Jquery Objects//
 /*var display_area= $("div").addClass("display_screen");
 var number_area = $("div").addClass("number_area");
