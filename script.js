@@ -28,6 +28,7 @@ function calculate(){
             console.log(num1,num2,op);
             perform_math(num1,op,num2);
             num_array.splice(num_array.length-1, 2);
+            num_array[i]=0;
             return;
         }
     }

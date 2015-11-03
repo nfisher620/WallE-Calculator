@@ -205,3 +205,8 @@ function perform_math(num1,op,num2){
 }
 
 
+.equals{
+    position:relative;
+    left:200px;
+    bottom:45px;
+}
