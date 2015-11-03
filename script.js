@@ -89,6 +89,7 @@ function perform_math(num1,op,num2){
             break;
     }
     var result;
+    num_array.push(result);
     return_number(result);
     console.log(result);
 }
@@ -115,7 +116,8 @@ $(document).ready(function () {
                 console.log("clear");
                 break;
             case 'C':
-                clear();
+               clear();
+                return_number("");
                 console.log("clear clear")
         }
     });
