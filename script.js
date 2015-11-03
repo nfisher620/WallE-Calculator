@@ -105,16 +105,18 @@ function return_number(result) {
 }
 
 $(document).ready(function () {
-    $(".clear_area").on("click", "button",function(value)
+    $("#clear_area").on("click", "button",function()
     {
         var value=$(this).text();
         switch (value) {
             case 'AC':
                 clear_all();
+                return_number("");
                 console.log("clear");
                 break;
             case 'C':
                 clear();
+                console.log("clear clear")
         }
     });
 })
@@ -126,4 +128,9 @@ function clear_all(){
     num2=null;
     op=null;
     num_array=[""];
+}
+
+function clear(){
+    num_array.pop();
+    num_array.push("");
 }
