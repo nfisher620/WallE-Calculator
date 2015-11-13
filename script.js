@@ -5,7 +5,8 @@ var op=null;
 var num_array=[""];
 
 function calculate(){
-    for(i=0; i<num_array.length;i++)
+    console.log("calculate ran");
+    for(i=0; num_array.length>1;i++)
     {
         if(!isNaN(num_array[i]))
         //is a number
@@ -24,18 +25,27 @@ function calculate(){
             op=num_array[i];
             console.log("looper working");
         }
-        if(!num1===null && !num2===null && op===null ){
-            console.log(num1,num2,op);
-            perform_math(num1,op,num2);
-            num_array.splice(num_array.length-1, 2);
-            num_array[i]=0;
-            return;
+        if(num1!==null && num2!==null && op!==null ){
+            console.log("in last conditional: " + num1,num2,op);
+            var result = perform_math(num1,op,num2);
+            num_array[i - 2] = result;
+            num_array.splice(i-1,2);
+            i=-1;
+            num1=null;
+            num2=null;
+            op=null;
+            console.log('result is: ' + result);
         }
     }
+    return_number(result);
 }
 
-function input_digit(number_string){
-    num_array[i] += number_string;
+// Want to add a conditional that will look for another operator in the array. If the operator exists, run calculate function and place the result into num_array[0]
+function input_digit(math_string){
+    num_array[i] += math_string;
+    /*if(math_string == /*operator variable){
+
+    }*/
     console.log(num_array);
 }
 
@@ -59,43 +69,46 @@ $(".operator").on("click", "button",function()
     var button_value=$(this).text();
     input_digit(button_value);
     increment_array_index();
-    console.log("operator is working");
     return_number(button_value);
 });
 
 $(".equals").on("click", "button", function(){
     calculate();
-    perform_math(num1,op,num2);
+    i=0;
+    //perform_math(num1,op,num2);
     console.log("equal working");
 });
 
 });
 
+// This function takes in 3 arguments num1 = int, op = string, num2 = int. depending on the operator, it will perform the applicable math.
 function perform_math(num1,op,num2){
+    var result = 0;
     switch(op) {
         case "+":
-            var result=parseInt(num1) + parseInt(num2);
+            result=parseInt(num1) + parseInt(num2);
             break;
         case "-":
-            var result=num1 - num2;
+            result=num1 - num2;
             break;
         case "x":
-            var result= num1 * num2;
+            result= num1 * num2;
             break;
         case "/":
-            var result= num1/num2;
+            result= num1/num2;
             if(num2===0){
                 alert("Error!");
             }
             break;
     }
-    var result;
-    num_array.push(result);
-    return_number(result);
-    console.log(result);
+    return result;
+    //num_array.push(result);
+    //return_number(result);
+    //console.log(result);
 }
 
 function return_number(result) {
+    console.log("return number ran");
     switch (result) {
         case undefined:
             $('#display_screen').html("");
@@ -122,6 +135,26 @@ $(document).ready(function () {
                 console.log("clear clear")
         }
     });
+    $(document).keyup(function(event){
+        //* = 106
+        // /= 111
+        // - = 109
+        // + = 108
+        var op_codes = ['*','','+','-','','/']
+        var op_values = [106,0,107,109,0,111];
+        if(event.which>=96 && event.which<=105){
+            input_digit(''+(event.which-96));
+            return_number(num_array[i]);
+        }
+        else if(op_values.indexOf(event.which)!=-1){
+            var char = op_codes[op_values.indexOf(event.which)];
+            increment_array_index();
+            var button_value=char;
+            input_digit(button_value);
+            increment_array_index();
+            return_number(button_value);
+        }
+    })
 })
 
 
