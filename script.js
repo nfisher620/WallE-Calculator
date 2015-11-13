@@ -86,19 +86,23 @@ function perform_math(num1,op,num2){
     var result = 0;
     switch(op) {
         case "+":
-            result=parseInt(num1) + parseInt(num2);
+            result=parseFloat(num1) + parseFloat(num2);
             break;
         case "-":
-            result=num1 - num2;
+            result=parseFloat(num1)- parseFloat(num2);
+            break;
+        case "*":
+            result= parseFloat(num1) * parseFloat(num2);
             break;
         case "x":
-            result= num1 * num2;
+            result=parseFloat(num1)* parseFloat(num2);
             break;
         case "/":
-            result= num1/num2;
-            if(num2===0){
-                alert("Error!");
+            if(num2==="0"){
+                result="Error";
+                break;
             }
+            result= parseFloat(num1) / parseFloat(num2);
             break;
     }
     return result;
@@ -135,27 +139,30 @@ $(document).ready(function () {
                 console.log("clear clear")
         }
     });
-    $(document).keyup(function(event){
+    $(document).keyup(function(event) {
         //* = 106
         // /= 111
         // - = 109
-        // + = 108
-        var op_codes = ['*','','+','-','','/']
-        var op_values = [106,0,107,109,0,111];
-        if(event.which>=96 && event.which<=105){
-            input_digit(''+(event.which-96));
+        // + = 107
+        var op_codes = ['*', '', '+', '-', '', '/'];
+        var op_values = [106, 0, 107, 109, 0, 111];
+        if (event.which >= 96 && event.which <= 105) {
+            input_digit('' + (event.which - 96));
             return_number(num_array[i]);
         }
-        else if(op_values.indexOf(event.which)!=-1){
+        else if (op_values.indexOf(event.which) != -1) {
             var char = op_codes[op_values.indexOf(event.which)];
             increment_array_index();
-            var button_value=char;
+            var button_value = char;
             input_digit(button_value);
             increment_array_index();
             return_number(button_value);
         }
-    })
-})
+        else if(event.which == 13){
+            calculate();
+            }
+        });
+});
 
 
 function clear_all(){
