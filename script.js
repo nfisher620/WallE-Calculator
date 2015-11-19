@@ -15,15 +15,17 @@ function calculate(){
                 num1=num_array[i];
                 console.log(num1);
             }
-            else{
+            else if(num2===null){
                 num2=num_array[i];
                 console.log(num2);
+                if(num2===""){
+                    num2=num1;
+                }
             }
         }
         else{
             //is an operator
             op=num_array[i];
-            console.log("looper working");
         }
         if(num1!==null && num2!==null && op!==null ){
             console.log("in last conditional: " + num1,num2,op);
@@ -33,7 +35,7 @@ function calculate(){
             i=-1;
             num1=null;
             num2=null;
-            op=null;
+            //op=null;
             console.log('result is: ' + result);
         }
     }
@@ -82,33 +84,41 @@ $(".equals").on("click", "button", function(){
 });
 
 // This function takes in 3 arguments num1 = int, op = string, num2 = int. depending on the operator, it will perform the applicable math.
-function perform_math(num1,op,num2){
-    var result = 0;
-    switch(op) {
-        case "+":
-            result=parseFloat(num1) + parseFloat(num2);
-            break;
-        case "-":
-            result=parseFloat(num1)- parseFloat(num2);
-            break;
-        case "*":
-            result= parseFloat(num1) * parseFloat(num2);
-            break;
-        case "x":
-            result=parseFloat(num1)* parseFloat(num2);
-            break;
-        case "/":
-            if(num2==="0"){
-                result="Error";
-                break;
-            }
-            result= parseFloat(num1) / parseFloat(num2);
-            break;
+function perform_math(num1,op,num2) {
+    var result = num1;
+    if (num1!== null && num2 == null && op == null) {
+        result = num1;
+        return_number(result);
+        console.log("here");
     }
-    return result;
-    //num_array.push(result);
-    //return_number(result);
-    //console.log(result);
+    else {
+
+        switch (op) {
+            case "+":
+                result = parseFloat(num1) + parseFloat(num2);
+                break;
+            case "-":
+                result = parseFloat(num1) - parseFloat(num2);
+                break;
+            case "*":
+                result = parseFloat(num1) * parseFloat(num2);
+                break;
+            case "x":
+                result = parseFloat(num1) * parseFloat(num2);
+                break;
+            case "/":
+                if (num2 === "0") {
+                    result = "Error";
+                    break;
+                }
+                result = parseFloat(num1) / parseFloat(num2);
+                break;
+        }
+        return result;
+        //num_array.push(result);
+        //return_number(result);
+        //console.log(result);
+    }
 }
 
 function return_number(result) {
@@ -144,26 +154,63 @@ $(document).ready(function () {
         // /= 111
         // - = 109
         // + = 107
-        var op_codes = ['*', '', '+', '-', '', '/'];
-        var op_values = [106, 0, 107, 109, 0, 111];
+        //added decimal to 110, was blank and zero
+        var op_codes = ['*', '', '+', '-', '.', '/', '*', '+','-', '/', '.'];
+        var op_values = [106, 108, 107, 109, 110, 111, 56, 187,189, 191,190];
+        console.log("which, shift ", event.which, event.shiftKey,(event.which==187 && event.shiftKey));
         if (event.which >= 96 && event.which <= 105) {
             input_digit('' + (event.which - 96));
             return_number(num_array[i]);
         }
+        else if(event.which == 13 || event.which==187 && event.shiftKey==false){
+            calculate();
+        }
+        else if (event.which ==110 || event.which ==190){
+            var char = op_codes[op_values.indexOf(event.which)];
+            input_digit(char);
+            return_number(char);
+        }
+        else if((event.which==56 || event.which==187) && event.shiftKey){
+            //calculate();
+            console.log("shift working");
+            increment_array_index();
+            var char = op_codes[op_values.indexOf(event.which)];
+            input_digit(char);
+            increment_array_index();
+            return_number(char);
+        }
+        else if (event.which >=48 && event.which<=57){
+            input_digit('' + (event.which-48));
+            return_number(num_array[i]);
+            }
         else if (op_values.indexOf(event.which) != -1) {
             var char = op_codes[op_values.indexOf(event.which)];
             increment_array_index();
-            var button_value = char;
-            input_digit(button_value);
+            input_digit(char);
             increment_array_index();
-            return_number(button_value);
+            return_number(char);
         }
-        else if(event.which == 13){
-            calculate();
-            }
         });
+        //switch(event.which){
+        //    case 13:
+        //    case 187:
+        //        if(!event.shiftKey){
+        //            calculate();
+        //            break;
+        //        }
+        //    case 56:
+        //        if(event.shiftKey){
+        //            console.log("shift working");
+        //            increment_array_index();
+        //            var char = op_codes[op_values.indexOf(event.which)];
+        //            input_digit(char);
+        //            increment_array_index();
+        //            return_number(char);
+        //        }
+        //        break;
+        //    default:
+        //}
 });
-
 
 function clear_all(){
     i=0;

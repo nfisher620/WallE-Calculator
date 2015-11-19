@@ -82,3 +82,6 @@ body{
     width:85px;
     height:50px;
 }
+.highlight{
+    border:10px solid yellow;
+}
